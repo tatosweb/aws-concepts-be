@@ -18,10 +18,6 @@ public class PollController {
     private final String API_V1 = "V1";
     private final PollService service;
 
-    public PollController(PollService service) {
-        this.service = service;
-    }
-
     @ApiOperation("")
     @GetMapping("/polls")
     public PollDto getPolls(@RequestParam(name = "size", defaultValue = "10") final int size) {
