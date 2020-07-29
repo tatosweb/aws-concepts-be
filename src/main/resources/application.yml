@@ -1,0 +1,21 @@
+  server:
+    compression.enabled: true
+    servlet.context-path: /poll-service
+  info:
+    build:
+      group: '@project.groupId@'
+      artifact: '@project.artifactId@'
+      version: '@project.version@'
+      name: '@project.name@'
+  spring:
+    main:
+      web-application-type: servlet
+      allow-bean-definition-overriding: true
+    datasource:
+      url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_SCHEMA:programing_poll}?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: ${MYSQL_USERNAME:root}
+      password: ${MYSQL_PASSWORD:qwerty}
+    jpa:
+      show-sql: ${SHOW_SQL:false}
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+      hibernate.ddl-auto: none
