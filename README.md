@@ -1,7 +1,7 @@
 # aws-concepts-be
 AWS training concepts
 
-#Technologies
+# Technologies
 Uses Java 8 - Spring Boot 2.3.1 
 
 How to Run:
