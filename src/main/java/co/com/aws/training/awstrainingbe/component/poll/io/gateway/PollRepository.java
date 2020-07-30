@@ -9,6 +9,6 @@ import java.util.List;
 public interface PollRepository extends JpaRepository<Poll, Long> {
 
     List<Poll> findById(Long id, Pageable pageable);
-    List<Poll> find(Pageable pageable);
+    List<Poll> findAll();
 
 }

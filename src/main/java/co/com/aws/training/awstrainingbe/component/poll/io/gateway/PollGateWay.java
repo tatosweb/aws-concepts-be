@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PollGateWay {
 
-    List<Poll> getPolls(Pageable pageable);
+    List<Poll> getPolls();
 
     Poll getPoll(Long id);
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PollService {
 
-    List<Poll> getPolls(Pageable pageable);
+    List<Poll> getPolls();
 
     Poll getPoll(Long id);
 

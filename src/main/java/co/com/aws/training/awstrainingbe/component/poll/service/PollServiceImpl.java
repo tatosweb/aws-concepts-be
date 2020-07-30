@@ -15,8 +15,8 @@ public class PollServiceImpl implements PollService{
     private final PollGateWay pollGateWay;
 
     @Override
-    public List<Poll> getPolls(Pageable pageable) {
-        return pollGateWay.getPolls(pageable);
+    public List<Poll> getPolls() {
+        return pollGateWay.getPolls();
     }
 
     @Override

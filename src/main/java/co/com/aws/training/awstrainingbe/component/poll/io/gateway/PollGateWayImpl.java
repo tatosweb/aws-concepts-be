@@ -14,8 +14,8 @@ public class PollGateWayImpl implements PollGateWay{
     private final PollRepository pollRepository;
 
     @Override
-    public List<Poll> getPolls(Pageable pageable) {
-        return pollRepository.find(pageable);
+    public List<Poll> getPolls() {
+        return pollRepository.findAll();
     }
 
     @Override

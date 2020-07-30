@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 
 @Data
 @Entity
-@Table(name = "programing_poll")
+@Table(name = "user_poll")
 public class Poll implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
