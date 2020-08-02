@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -50,7 +51,7 @@ public class PollController {
         dataPoll.setPreferredLanguage(poll.getPreferredLanguage());
         dataPoll.setProfession(poll.getProfession());
         dataPoll.setWorkPlace(poll.getWorkPlace());
-        dataPoll.setRegistrationDate(poll.getRegistrationDate());
+        dataPoll.setRegistrationDate(OffsetDateTime.now());
         service.savePoll(dataPoll);
     }
 }

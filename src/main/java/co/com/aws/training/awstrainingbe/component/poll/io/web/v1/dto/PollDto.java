@@ -25,7 +25,7 @@ public class PollDto implements Serializable {
     private String preferredLanguage;
     private String workPlace;
     private String profession;
-    @JsonProperty("timestamp")
+    @JsonProperty(value = "timestamp", required = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private OffsetDateTime registrationDate;
 }
