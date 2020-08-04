@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "infraestructura redes vpc"
+
+Parameters:
+  bloqueCidr:
+    Description: block cidr
+    Type: String
+    Default: 10.0.0.0/16
+
+  bloqueIpPublica1:
+    Description: block ip red publica 1
+    Type: String
+    Default: 10.0.1.0/24
+
+  bloqueIpPrivada1:
+    Description: block ip red privada 1
+    Type: String
+    Default: 10.0.100.0/24
+
+  azPublica1:
+    Description: zona disponibilidad publica 1
+    Type: 'AWS::EC2::AvailabilityZone::Name'
+
+  azPrivada1:
+    Description: zona disponibilidad privada 1
+    Type: 'AWS::EC2::AvailabilityZone::Name'
+
+
+Resources:
+
+  myVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref bloqueCidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: vpcCurso
+
+  myIG:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: myIG
+
+  attachMyIGToVPC:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref myIG
+      VpcId: !Ref myVPC
+
+  miRedPublica1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref azPublica1
+      CidrBlock: !Ref bloqueIpPublica1
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: redPublica1
+      VpcId: !Ref myVPC
+
+
+
+  miRedPrivada1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref azPrivada1
+      CidrBlock: !Ref bloqueIpPrivada1
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: redPrivada1
+      VpcId: !Ref myVPC
+
+  rtbPublico:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref myVPC
+      Tags:
+        - Key: Name
+          Value: publico
+
+  rtbPrivado:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref myVPC
+      Tags:
+        - Key: Name
+          Value: privado
+
+  egressIgwRtbPublico:
+    Type: AWS::EC2::Route
+    DependsOn: myIG
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref myIG
+      RouteTableId: !Ref rtbPublico
+
+  redPublica1ToRtbPublico:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref rtbPublico
+      SubnetId: !Ref miRedPublica1
+
+  redPrivada1ToRtbPrivado:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref rtbPrivado
+      SubnetId: !Ref miRedPrivada1
+
+
+Outputs:
+  idVPC:
+    Description: id vpc
+    Value:
+      !Ref myVPC
+    Export:
+      Name: infraestructura-idVPC
+
+  blockCidr:
+    Description: id vpc
+    Value:
+      !GetAtt myVPC.CidrBlock
+    Export:
+      Name: infraestructura-cidrBlockVPC
+
+  subnetPublica1:
+    Description: red publica
+    Value:
+      !Ref miRedPublica1
+    Export:
+      Name: infraestructura-subnetPublica1
+
+  subnetPrivada1:
+    Description: red publica
+    Value:
+      !Ref miRedPrivada1
+    Export:
+      Name: infraestructura-subnetPrivada1

@@ -1,0 +1,39 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A sample template
+
+Parameters:
+  vpcIdInput:
+    Description: Ingrese el ID de la VPC donde funcionara la EC2
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+
+  MyEC2Instance: #An inline comment
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-026dea5602e368e96" #AMI Ohio
+      InstanceType: t2.micro
+      KeyName: curso-us-east-2
+      SecurityGroupIds:
+        - !Ref myFirewallDemo
+
+  myFirewallDemo:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Permite conexion ssh desde internet
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: sshDemo
+      VpcId: !Ref vpcIdInput
+
+Outputs:
+  ipPublicaEc2:
+    Description: Mostrar la IP publica de mi EC2
+    Value:
+      !GetAtt MyEC2Instance.PublicIp

@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "azPublica1",
+    "ParameterValue": "us-east-1a"
+  },
+  {
+    "ParameterKey": "azPrivada1",
+    "ParameterValue": "us-east-1a"
+  }
+]
