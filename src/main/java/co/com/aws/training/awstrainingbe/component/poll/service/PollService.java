@@ -15,4 +15,6 @@ public interface PollService {
 
     void savePoll(Poll poll);
 
+    //void updatePoll(Poll poll);
+
 }
