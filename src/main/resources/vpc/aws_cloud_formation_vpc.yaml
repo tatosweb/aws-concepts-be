@@ -141,3 +141,5 @@ Outputs:
       !Ref miRedPrivada1
     Export:
       Name: infraestructura-subnetPrivada1
+
+# va a tocar hacer dos subnets privadas para soportar la bd

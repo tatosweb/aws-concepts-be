@@ -2,17 +2,22 @@ package co.com.aws.training.awstrainingbe.component.poll.io.web;
 
 import co.com.aws.training.awstrainingbe.component.poll.io.web.v1.dto.PollDto;
 import co.com.aws.training.awstrainingbe.component.poll.model.Poll;
+import co.com.aws.training.awstrainingbe.component.poll.model.PollNotFoundException;
 import co.com.aws.training.awstrainingbe.component.poll.service.PollService;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.nullness.Opt;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -29,6 +34,7 @@ public class PollController {
         dataPolls.stream().forEach(poll ->
                 returnPolls.add(PollDto.builder()
                         .age(poll.getAge())
+                        .id(poll.getId())
                         .lastName(poll.getLastName())
                         .name(poll.getName())
                         .preferredLanguage(poll.getPreferredLanguage())
@@ -43,7 +49,6 @@ public class PollController {
     @PostMapping("/poll")
     @Validated
     public void savePoll(@RequestBody @Valid PollDto poll) {
-        //TODO:Review update case
         Poll dataPoll = new Poll();
         dataPoll.setAge(poll.getAge());
         dataPoll.setLastName(poll.getLastName());
@@ -53,5 +58,28 @@ public class PollController {
         dataPoll.setWorkPlace(poll.getWorkPlace());
         dataPoll.setRegistrationDate(OffsetDateTime.now());
         service.savePoll(dataPoll);
+    }
+
+    @ApiOperation("")
+    @GetMapping("/poll/{id}")
+    public PollDto getPoll(@PathVariable final Long id) {
+        Optional<Poll> poll = null;
+        try {
+            poll = service.getPoll(id);
+            return PollDto.builder()
+                    .age(poll.get().getAge())
+                    .id(poll.get().getId())
+                    .lastName(poll.get().getLastName())
+                    .name(poll.get().getName())
+                    .preferredLanguage(poll.get().getPreferredLanguage())
+                    .profession(poll.get().getProfession())
+                    .registrationDate(poll.get().getRegistrationDate())
+                    .workPlace(poll.get().getWorkPlace())
+                    .build();
+        } catch (EntityNotFoundException e) {
+            //TODO: use log4j
+            e.printStackTrace();
+            throw new PollNotFoundException("id: " + id);
+        }
     }
 }

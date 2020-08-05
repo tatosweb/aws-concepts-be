@@ -18,7 +18,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 public class PollDto implements Serializable {
 
-    //private Long id;
+    private Long id;
     private String name;
     private String lastName;
     private int age;

@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
@@ -19,8 +21,8 @@ public class PollGateWayImpl implements PollGateWay{
     }
 
     @Override
-    public Poll getPoll(Long id) {
-        return pollRepository.getOne(id);
+    public Optional<Poll> getPoll(Long id) throws EntityNotFoundException {
+        return Optional.ofNullable(pollRepository.getOne(id));
     }
 
     @Override
