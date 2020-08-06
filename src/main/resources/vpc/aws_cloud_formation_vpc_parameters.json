@@ -6,5 +6,9 @@
   {
     "ParameterKey": "azPrivada1",
     "ParameterValue": "us-east-1a"
+  },
+  {
+    "ParameterKey": "azPrivada2",
+    "ParameterValue": "us-east-1b"
   }
 ]

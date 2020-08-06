@@ -18,6 +18,11 @@ Parameters:
     Type: String
     Default: 10.0.100.0/24
 
+  bloqueIpPrivada2:
+    Description: block ip red privada 2
+    Type: String
+    Default: 10.0.200.0/24
+
   azPublica1:
     Description: zona disponibilidad publica 1
     Type: 'AWS::EC2::AvailabilityZone::Name'
@@ -26,6 +31,9 @@ Parameters:
     Description: zona disponibilidad privada 1
     Type: 'AWS::EC2::AvailabilityZone::Name'
 
+  azPrivada2:
+    Description: zona disponibilidad privada 2
+    Type: 'AWS::EC2::AvailabilityZone::Name'
 
 Resources:
 
@@ -63,8 +71,6 @@ Resources:
           Value: redPublica1
       VpcId: !Ref myVPC
 
-
-
   miRedPrivada1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -74,6 +80,17 @@ Resources:
       Tags:
         - Key: Name
           Value: redPrivada1
+      VpcId: !Ref myVPC
+
+  miRedPrivada2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref azPrivada2
+      CidrBlock: !Ref bloqueIpPrivada2
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: redPrivada2
       VpcId: !Ref myVPC
 
   rtbPublico:
@@ -112,6 +129,11 @@ Resources:
       RouteTableId: !Ref rtbPrivado
       SubnetId: !Ref miRedPrivada1
 
+  redPrivada2ToRtbPrivado:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref rtbPrivado
+      SubnetId: !Ref miRedPrivada2
 
 Outputs:
   idVPC:
@@ -141,5 +163,12 @@ Outputs:
       !Ref miRedPrivada1
     Export:
       Name: infraestructura-subnetPrivada1
+
+  subnetPrivada2:
+    Description: red publica
+    Value:
+      !Ref miRedPrivada2
+    Export:
+      Name: infraestructura-subnetPrivada2
 
 # va a tocar hacer dos subnets privadas para soportar la bd
