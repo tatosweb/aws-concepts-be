@@ -4,6 +4,10 @@
     "ParameterValue": "us-east-1a"
   },
   {
+    "ParameterKey": "azPublica2",
+    "ParameterValue": "us-east-1b"
+  },
+  {
     "ParameterKey": "azPrivada1",
     "ParameterValue": "us-east-1a"
   },
