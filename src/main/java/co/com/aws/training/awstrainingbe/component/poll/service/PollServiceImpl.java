@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -20,7 +22,7 @@ public class PollServiceImpl implements PollService{
     }
 
     @Override
-    public Poll getPoll(Long id) {
+    public Optional<Poll> getPoll(Long id) throws EntityNotFoundException {
         return pollGateWay.getPoll(id);
     }
 

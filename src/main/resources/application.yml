@@ -14,7 +14,7 @@
     datasource:
       url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_SCHEMA:programing_poll}?useUnicode=true&characterEncoding=utf-8&useSSL=false
       username: ${MYSQL_USERNAME:root}
-      password: ${MYSQL_PASSWORD:qwerty}
+      password: ${MYSQL_PASSWORD:root}
     jpa:
       show-sql: ${SHOW_SQL:false}
       database-platform: org.hibernate.dialect.MySQL5Dialect

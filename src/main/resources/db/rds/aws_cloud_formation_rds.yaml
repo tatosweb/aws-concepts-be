@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "base datos RDS"
+
+Parameters:
+  Passwd:
+    Description: password de la base datos
+    Type: 'String'
+    NoEcho: true
+    Default: "qwerty123"
+
+  TipoInstancia:
+    Description: tipo de ec2
+    Type: String
+    Default: db.t2.micro
+
+Resources:
+
+  myBD:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      BackupRetentionPeriod: 0
+      CopyTagsToSnapshot: false
+      DBInstanceClass: !Ref TipoInstancia
+      DBName: programing_poll
+      DBSubnetGroupName: !Ref mySubnetConf
+      DeletionProtection: false
+      Engine: MySQL
+      EngineVersion: "5.7.21"
+      MasterUsername: "root"
+      MasterUserPassword: !Ref Passwd
+      MultiAZ: false
+      Port: "3306"
+      StorageType: gp2
+      VPCSecurityGroups:
+        - !ImportValue infraestructura-sgMysqlRDS
+
+  #      DB Subnet Group doesn't meet availability zone coverage requirement.
+  #      Please add subnets to cover at least 2 availability zones.
+  #      Current coverage: 1 (Service: AmazonRDS; Status Code: 400;
+  #      Error Code: DBSubnetGroupDoesNotCoverEnoughAZs; Request ID: 8ed99215-2ac9-4959-bc5c-d3b50d6fee6e)
+
+  #     At least two subnets needed!
+
+  mySubnetConf:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: 'redes privadas'
+      DBSubnetGroupName: 'dbprivate'
+      SubnetIds:
+        - !ImportValue infraestructura-subnetPrivada1
+        - !ImportValue infraestructura-subnetPrivada2
+Outputs:
+  myBDEndpoint:
+    Description: endpoint bd
+    Value:
+      !GetAtt myBD.Endpoint.Address
+    Export:
+      Name: basedatos-endpointRDS
