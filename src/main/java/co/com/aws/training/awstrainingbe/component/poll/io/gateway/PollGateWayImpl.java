@@ -4,6 +4,7 @@ import co.com.aws.training.awstrainingbe.component.poll.model.Poll;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,7 +17,7 @@ public class PollGateWayImpl implements PollGateWay {
 
   @Override
   public List<Poll> getPolls() {
-    return pollRepository.findAll();
+    return pollRepository.findAll(Sort.by(Sort.Direction.DESC, "registrationDate"));
   }
 
   @Override
