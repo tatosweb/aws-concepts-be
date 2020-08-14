@@ -1,18 +1,12 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Monolitico App",
+  "Description": "Poll App",
   "Metadata": {},
   "Parameters": {
     "KeyPairName": {
       "Type": "AWS::EC2::KeyPair::KeyName",
       "Description": "Archivo para conexion a EC2",
       "ConstraintDescription": "Debe existir previamente un archivo keypair"
-    },
-    "emailSending": {
-      "Type": "String"
-    },
-    "emailDestination": {
-      "Type": "String"
     },
     "userMasterBD": {
       "Type": "String",
@@ -24,7 +18,7 @@
       "Type": "String",
       "Description": "Password ROOT BD",
       "NoEcho": true,
-      "Default": "12345678"
+      "Default": "qwerty123"
     },
     "tipoDeInstancia" : {
       "Type" : "String",
@@ -49,11 +43,11 @@
     "monoliticoTargetGroup": {
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
       "Properties": {
-        "HealthCheckIntervalSeconds": 30,
+        "HealthCheckIntervalSeconds": 45,
         "HealthCheckProtocol": "HTTP",
-        "HealthCheckPath": "/status/verificar",
-        "HealthCheckTimeoutSeconds": 10,
-        "HealthyThresholdCount": 5,
+        "HealthCheckPath": "/status/check",
+        "HealthCheckTimeoutSeconds": 15,
+        "HealthyThresholdCount": 10,
         "Matcher": {
           "HttpCode": "200-204"
         },
@@ -63,7 +57,7 @@
         "TargetGroupAttributes": [
         {
           "Key": "deregistration_delay.timeout_seconds",
-          "Value": "30"
+          "Value": "45"
         }
         ],
         "Targets": [],
@@ -104,24 +98,26 @@
                 "yum update -y \n",
                 "yum install java-1.8.0 -y \n",
                 "yum remove java-1.7.0-openjdk -y \n",
-                "echo 'export host=",{ "Fn::ImportValue": "basedatos-endpointRDS" },"' >> ~/.bash_profile \n",
-                "echo 'export port=3306' >> ~/.bash_profile \n",
-                "echo 'export database=\"geoserviciosbd\"' >> ~/.bash_profile \n",
-                "echo 'export username=",{"Ref": "userMasterBD"},"' >> ~/.bash_profile \n",
-                "echo 'export password=",{"Ref": "passwordMasterBD"},"' >> ~/.bash_profile \n",
+                "echo 'export MYSQL_HOST=",{ "Fn::ImportValue": "basedatos-endpointRDS" },"' >> ~/.bash_profile \n",
+                "echo 'export MYSQL_PORT=3306' >> ~/.bash_profile \n",
+                "echo 'export MYSQL_SCHEMA=\"programing_poll\"' >> ~/.bash_profile \n",
+                "echo 'export MYSQL_USERNAME=",{"Ref": "userMasterBD"},"' >> ~/.bash_profile \n",
+                "echo 'export MYSQL_PASSWORD=",{"Ref": "passwordMasterBD"},"' >> ~/.bash_profile \n",
                 "echo 'export userPoolId=",{ "Fn::ImportValue": "cognito-pool-id" },"' >> ~/.bash_profile \n",
                 "echo 'export clientId=",{ "Fn::ImportValue": "cognito-client-angular" },"' >> ~/.bash_profile \n",
-                "echo 'export emailSend=",{"Ref": "emailSending"},"' >> ~/.bash_profile \n",
-                "echo 'export emailRecep=",{"Ref": "emailDestination"},"' >> ~/.bash_profile \n",
-                "echo 'export arnTopicoSNS=",{ "Fn::ImportValue": "share-sns-app" },"' >> ~/.bash_profile \n",
-                "echo 'export nameSQS=",{ "Fn::ImportValue": "share-sqs-app" },"' >> ~/.bash_profile \n",
-                "echo 'export AWS_SES_REGION=\"us-east-1\"' >> ~/.bash_profile \n",
-                "echo 'export AWS_SNS_REGION=",{ "Ref": "AWS::Region" },"' >> ~/.bash_profile \n",
                 "echo 'export AWS_COGNITO_REGION=",{ "Ref": "AWS::Region" },"' >> ~/.bash_profile \n",
-                "echo 'export AWS_SQS_REGION=",{ "Ref": "AWS::Region" },"' >> ~/.bash_profile \n",
                 "source ~/.bash_profile \n",
-                "wget https://gitlab.com/w.marchanaranda/aws-presencial/raw/master/app-aws.jar \n",
-                "nohup java -Djava.security.egd=file:/dev/./urandom -jar app-aws.jar | tee output.log & "
+                "echo $MYSQL_HOST \n",
+                "echo $MYSQL_PORT \n",
+                "echo $MYSQL_SCHEMA \n",
+                "echo $MYSQL_USERNAME \n",
+                "echo $MYSQL_USERNAME \n",
+                "echo $userPoolId \n",
+                "echo $clientId \n",
+                "echo $AWS_COGNITO_REGION \n",
+                "cd /tmp \n",
+                "wget https://github.com/tatosweb/aws-concepts-be/tree/master/src/main/resources/install/aws-concepts-be-0.0.1-SNAPSHOT.jar \n",
+                "nohup java -Djava.security.egd=file:/dev/./urandom -jar aws-concepts-be-0.0.1-SNAPSHOT.jar | tee output.log & "
               ]
             ]
           }
@@ -252,7 +248,7 @@
           "Field": "path-pattern",
           "Values": [
             "/api/*",
-            "/v2/*"
+            "/v1/*"
           ]
         }
         ],

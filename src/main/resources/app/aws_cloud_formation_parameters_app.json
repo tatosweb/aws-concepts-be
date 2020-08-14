@@ -1,14 +1,6 @@
 [
   {
     "ParameterKey": "KeyPairName",
-    "ParameterValue": "curso-us-east-2"
-  },
-  {
-    "ParameterKey": "emailSending",
-    "ParameterValue": ""
-  },
-  {
-    "ParameterKey": "emailDestination",
-    "ParameterValue": ""
+    "ParameterValue": "poll"
   }
 ]
