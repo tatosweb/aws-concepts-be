@@ -94,10 +94,10 @@ public class PollController {
 
   @ResponseStatus(HttpStatus.CREATED)
   @ApiOperation("")
-  @PutMapping("/poll")
+  @PutMapping("/poll/{id}")
   @Validated
-  public void updatePoll(@RequestBody @Valid PollDto poll) {
-    Optional<Poll> p = service.getPoll(poll.getId());
+  public void updatePoll(@RequestBody @Valid PollDto poll, @PathVariable final Long id) {
+    Optional<Poll> p = service.getPoll(id);
     if (p.isPresent()) {
       p.get().setAge(poll.getAge());
       p.get().setLastName(poll.getLastName());

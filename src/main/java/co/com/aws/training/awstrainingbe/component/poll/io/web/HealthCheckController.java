@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("status")
+@RequestMapping(path = "/api/v1", produces = "application/json;charset=UTF-8")
 public class HealthCheckController {
-    @GetMapping(value="check")
+    @GetMapping(value="/check")
     public ResponseEntity<String> validate(){
         return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
