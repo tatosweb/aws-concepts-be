@@ -5,7 +5,7 @@
     "version": "1.0",
     "title": "Poll Api"
   },
-  "host": "xvlwbfkz9f.execute-api.us-east-1.amazonaws.com",
+  "host": "q9hmlkasba.execute-api.us-east-1.amazonaws.com",
   "basePath": "/prod",
   "schemes": [
     "https"
@@ -14,9 +14,6 @@
     "/poll-service/api/v1/check": {
       "get": {
         "operationId": "validateUsingGET",
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "description": "200 response",
@@ -37,7 +34,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "http_proxy",
           "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/check",
           "responses": {
             "default": {
@@ -48,45 +44,8 @@
             }
           },
           "passthroughBehavior": "when_no_match",
-          "httpMethod": "GET"
-        }
-      },
-      "options": {
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Methods": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Headers": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
+          "httpMethod": "GET",
+          "type": "http_proxy"
         }
       }
     },
@@ -94,9 +53,6 @@
       "post": {
         "operationId": "savePollUsingPOST",
         "consumes": [
-          "application/json;charset=UTF-8"
-        ],
-        "produces": [
           "application/json"
         ],
         "parameters": [
@@ -124,7 +80,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "http_proxy",
           "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/poll",
           "responses": {
             "default": {
@@ -132,45 +87,8 @@
             }
           },
           "passthroughBehavior": "when_no_match",
-          "httpMethod": "POST"
-        }
-      },
-      "options": {
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Methods": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Headers": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
+          "httpMethod": "POST",
+          "type": "http_proxy"
         }
       }
     },
@@ -178,7 +96,6 @@
       "get": {
         "operationId": "getPollUsingGET",
         "produces": [
-          "application/json;charset=UTF-8",
           "application/json"
         ],
         "parameters": [
@@ -212,7 +129,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "http_proxy",
           "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/poll/{id}",
           "responses": {
             "default": {
@@ -226,15 +142,13 @@
             "integration.request.path.id": "method.request.path.id"
           },
           "passthroughBehavior": "when_no_match",
-          "httpMethod": "GET"
+          "httpMethod": "GET",
+          "type": "http_proxy"
         }
       },
       "put": {
         "operationId": "updatePollUsingPUT",
         "consumes": [
-          "application/json;charset=UTF-8"
-        ],
-        "produces": [
           "application/json"
         ],
         "parameters": [
@@ -268,7 +182,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "http_proxy",
           "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/poll/{id}",
           "responses": {
             "default": {
@@ -279,45 +192,8 @@
             "integration.request.path.id": "method.request.path.id"
           },
           "passthroughBehavior": "when_no_match",
-          "httpMethod": "PUT"
-        }
-      },
-      "options": {
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Methods": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Headers": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'PUT,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
+          "httpMethod": "PUT",
+          "type": "http_proxy"
         }
       }
     },
@@ -325,7 +201,6 @@
       "get": {
         "operationId": "getPollsUsingGET",
         "produces": [
-          "application/json;charset=UTF-8",
           "application/json"
         ],
         "parameters": [
@@ -359,7 +234,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "http_proxy",
           "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/polls",
           "responses": {
             "default": {
@@ -370,45 +244,8 @@
             }
           },
           "passthroughBehavior": "when_no_match",
-          "httpMethod": "GET"
-        }
-      },
-      "options": {
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Methods": {
-                "type": "string"
-              },
-              "Access-Control-Allow-Headers": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Origin": "'*'"
-              }
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
-          "type": "mock"
+          "httpMethod": "GET",
+          "type": "http_proxy"
         }
       }
     },
@@ -416,7 +253,7 @@
       "post": {
         "operationId": "loginPollUsingPOST",
         "consumes": [
-          "application/json;charset=UTF-8"
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -432,6 +269,17 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
           "201": {
             "description": "201 response"
           },
@@ -446,29 +294,47 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "http_proxy",
           "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/security/login",
           "responses": {
             "default": {
-              "statusCode": "200"
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
             }
           },
           "passthroughBehavior": "when_no_match",
-          "httpMethod": "POST"
+          "httpMethod": "POST",
+          "type": "http_proxy"
         }
       },
       "options": {
         "consumes": [
           "application/json"
         ],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            },
             "headers": {
+              "Access-Control-Expose-Headers": {
+                "type": "string"
+              },
               "Access-Control-Allow-Origin": {
                 "type": "string"
               },
               "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Credentials": {
+                "type": "string"
+              },
+              "Access-Control-Max-Age": {
                 "type": "string"
               },
               "Access-Control-Allow-Headers": {
@@ -483,15 +349,248 @@
               "statusCode": "200",
               "responseParameters": {
                 "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,access-control-allow-origin,access-control-allow-methods'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "passthroughBehavior": "when_no_templates",
+          "type": "mock"
+        }
+      }
+    },
+    "/poll-service/api/v1/security/refresh-token": {
+      "post": {
+        "operationId": "loginPollUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "LoginDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "201": {
+            "description": "201 response"
+          },
+          "401": {
+            "description": "401 response"
+          },
+          "403": {
+            "description": "403 response"
+          },
+          "404": {
+            "description": "404 response"
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/security/refresh-token",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
           },
           "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "http_proxy"
+        }
+      }
+    },
+    "/poll-service/api/v1/security/signout": {
+      "post": {
+        "operationId": "loginPollUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "LoginDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "201": {
+            "description": "201 response"
+          },
+          "401": {
+            "description": "401 response"
+          },
+          "403": {
+            "description": "403 response"
+          },
+          "404": {
+            "description": "404 response"
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/security/signout",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "http_proxy"
+        }
+      }
+    },
+    "/poll-service/api/v1/security/token": {
+      "post": {
+        "operationId": "loginPollUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "LoginDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "201": {
+            "description": "201 response"
+          },
+          "401": {
+            "description": "401 response"
+          },
+          "403": {
+            "description": "403 response"
+          },
+          "404": {
+            "description": "404 response"
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "uri": "http://myBalancerCf-2112786308.us-east-1.elb.amazonaws.com/poll-service/api/v1/security/token",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "http_proxy"
+        }
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            },
+            "headers": {
+              "Access-Control-Expose-Headers": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Credentials": {
+                "type": "string"
+              },
+              "Access-Control-Max-Age": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,access-control-allow-origin,access-control-allow-methods'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
           "requestTemplates": {
             "application/json": "{\"statusCode\": 200}"
           },
+          "passthroughBehavior": "when_no_templates",
           "type": "mock"
         }
       }
@@ -530,6 +629,33 @@
         }
       },
       "title": "PollDto"
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "body": {
+          "type": "object",
+          "properties": {}
+        },
+        "idToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "sessionId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "isAdmin": {
+          "type": "boolean"
+        }
+      }
     },
     "ArrayOfPollDto": {
       "type": "array",
